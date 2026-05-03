@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIRAKO · ULTIMATE DDOS SYSTEM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0c0f;
+            font-family: 'Courier New', monospace;
+            color: #00ff9d;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            border: 1px solid #00ff9d;
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.2);
+            background-color: rgba(10, 12, 15, 0.98);
+            backdrop-filter: blur(5px);
+            border-radius: 5px;
+        }
+
+        .cyber-header {
+            border-bottom: 2px solid #00ff9d;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .title {
+            font-size: 4em;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            text-shadow: 0 0 15px #00ff9d;
+            font-weight: bold;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 10px #00ff9d; }
+            33% { text-shadow: -3px 0 #ff0000, 3px 0 #0000ff; }
+            66% { text-shadow: 3px -2px #00ff00, -2px 2px #ff00ff; }
+        }
+
+        .subtitle {
+            color: #00cc7d;
+            font-size: 14px;
+            letter-spacing: 3px;
+        }
+
+        .attack-panel {
+            padding: 30px;
+            border-bottom: 1px solid #00ff9d;
+        }
+
+        .panel-title h2 {
+            color: #00ff9d;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00cc7d;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            background: #1a1d24;
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .attack-button {
+            width: 100%;
+            padding: 18px;
+            background: transparent;
+            border: 2px solid #00ff9d;
+            color: #00ff9d;
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .attack-button:hover:not(:disabled) {
+            background: #00ff9d;
+            color: #0a0c0f;
+            box-shadow: 0 0 40px rgba(0, 255, 157, 0.5);
+        }
+
+        .stop-button {
+            border-color: #ff4444;
+            color: #ff4444;
+        }
+
+        .stop-button:hover:not(:disabled) {
+            background: #ff4444;
+            color: #0a0c0f;
+        }
+
+        .attack-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .logs-panel {
+            padding: 30px;
+        }
+
+        .logs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logs-container {
+            background: #1a1d24;
+            border: 1px solid #00ff9d;
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+            padding: 5px 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            border: 1px solid #00ff9d;
+            padding: 12px;
+            text-align: center;
+            background: rgba(0, 255, 157, 0.05);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(0, 255, 157, 0.7);
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff9d;
+        }
+
+        .stat-value.small {
+            font-size: 16px;
+        }
+
+        .download-btn {
+            background: transparent;
+            border: 1px solid #00ff9d;
+            color: #00ff9d;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .download-btn:hover {
+            background: #00ff9d;
+            color: #0a0c0f;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #ff4444;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.active {
+            background: #00ff9d;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .cyber-footer {
+            border-top: 1px solid #00ff9d;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(0, 255, 157, 0.5);
+        }
+
+        .warning-text {
+            color: #ff4444;
+            font-size: 11px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1d24;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00ff9d;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cyber-header">
+            <div class="title">HIRAKO</div>
+            <div class="subtitle">ULTIMATE DDOS SYSTEM v4.0 // PROXY ROTATOR</div>
+        </div>
+
+        <div class="attack-panel">
+            <div class="panel-title">
+                <h2>> ATTACK PARAMETERS_</h2>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label>Target Domain/IP</label>
+                    <input type="text" id="target" placeholder="example.com" value="example.com">
+                </div>
+
+                <div class="input-group">
+                    <label>Port (optional)</label>
+                    <input type="text" id="port" placeholder="80">
+                </div>
+
+                <div class="input-group">
+                    <label>Attack Type</label>
+                    <select id="attackType">
+                        <option value="http">HTTP Flood</option>
+                        <option value="tcp">TCP Flood</option>
+                        <option value="udp">UDP Flood</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Attack Strategy</label>
+                    <select id="strategy">
+                        <option value="mixed">🌀 MIXED (Smart Rotation)</option>
+                        <option value="http">🌐 HTTP Flood</option>
+                        <option value="slowloris">🐌 SLOWLORIS</option>
+                        <option value="amplification">📡 UDP AMPLIFICATION</option>
+                        <option value="pipeline">🚀 HTTP PIPELINING</option>
+                        <option value="tcp">🔌 TCP Flood</option>
+                        <option value="udp">🎯 UDP Flood</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Intensity</label>
+                    <select id="intensity">
+                        <option value="normal">🔥 NORMAL</option>
+                        <option value="high">💀 HIGH (2x)</option>
+                        <option value="extreme">⚡ EXTREME (Unleash)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Attack Mode</label>
+                    <select id="mode">
+                        <option value="1">Auto Spam (Infinite)</option>
+                        <option value="2">Custom Request</option>
+                    </select>
+                </div>
+
+                <div class="input-group" id="customRequestDiv" style="display: none;">
+                    <label>Total Requests</label>
+                    <input type="number" id="reqCount" value="1000" min="1" max="100000">
+                </div>
+
+                <div class="input-group">
+                    <label>Concurrency (Threads)</label>
+                    <input type="number" id="concurrency" value="50" min="1" max="500">
+                </div>
+
+                <div class="input-group">
+                    <label>Use Proxy Rotator</label>
+                    <select id="useProxy">
+                        <option value="Y">YES (Rotate HTTP/SOCKS)</option>
+                        <option value="N">NO (Direct)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Enable Logging</label>
+                    <select id="logging">
+                        <option value="Y">YES</option>
+                        <option value="N">NO</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="attack-button" id="startAttack">⚡ INITIATE ATTACK ⚡</button>
+                <button class="attack-button stop-button" id="stopAttack" disabled>⚠️ ABORT ATTACK ⚠️</button>
+            </div>
+        </div>
+
+        <div class="logs-panel">
+            <div class="logs-header">
+                <div>
+                    <h3>> LIVE ATTACK LOGS_</h3>
+                </div>
+                <div>
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="recordingStatus">STANDBY</span>
+                    <button class="download-btn" id="downloadLogs" style="margin-left: 15px;">⬇️ DOWNLOAD LOGS</button>
+                    <button class="download-btn" id="reloadProxy" style="margin-left: 5px;">🔄 RELOAD PROXY</button>
+                </div>
+            </div>
+
+            <div class="logs-container" id="logs">
+                <div class="log-entry">[SYSTEM] HIRAKO Ultimate DDOS System initialized...</div>
+                <div class="log-entry">[SYSTEM] Proxy rotator ready. Use proxy: YES</div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-label">Requests Sent</div>
+                    <div class="stat-value" id="packetCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Success</div>
+                    <div class="stat-value" id="successCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Failed</div>
+                    <div class="stat-value" id="failCount">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Proxy Pool</div>
+                    <div class="stat-value small" id="proxyCount">Loading...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cyber-footer">
+            <div>HIRAKO SYSTEMS // EDUCATIONAL PURPOSE ONLY</div>
+            <div class="warning-text">⚠️ WARNING: Only use on systems you own or have permission to test ⚠️</div>
+        </div>
+    </div>
+
+    <script>
+        const modeSelect = document.getElementById('mode');
+        const customRequestDiv = document.getElementById('customRequestDiv');
+        const startBtn = document.getElementById('startAttack');
+        const stopBtn = document.getElementById('stopAttack');
+        const downloadBtn = document.getElementById('downloadLogs');
+        const reloadProxyBtn = document.getElementById('reloadProxy');
+        const logsContainer = document.getElementById('logs');
+        const packetCountSpan = document.getElementById('packetCount');
+        const successCountSpan = document.getElementById('successCount');
+        const failCountSpan = document.getElementById('failCount');
+        const proxyCountSpan = document.getElementById('proxyCount');
+        const statusDot = document.getElementById('statusDot');
+        const recordingStatus = document.getElementById('recordingStatus');
+
+        let isAttacking = false;
+        let attackId = null;
+        let statsInterval = null;
+        let packetCount = 0, successCount = 0, failCount = 0;
+
+        modeSelect.addEventListener('change', function() {
+            customRequestDiv.style.display = this.value === '2' ? 'block' : 'none';
+        });
+
+        function addLog(message, type = 'success') {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            const timestamp = new Date().toLocaleTimeString('id-ID', { hour12: false });
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logsContainer.appendChild(logEntry);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+            while (logsContainer.children.length > 200) {
+                logsContainer.removeChild(logsContainer.firstChild);
+            }
+        }
+
+        function updateStats() {
+            packetCountSpan.textContent = packetCount.toLocaleString();
+            successCountSpan.textContent = successCount.toLocaleString();
+            failCountSpan.textContent = failCount.toLocaleString();
+        }
+
+        async function fetchStats() {
+            if (!attackId || !isAttacking) return;
+            try {
+                const response = await fetch(`/api/attack?action=stats&id=${attackId}`);
+                const data = await response.json();
+                if (data.success) {
+                    packetCount = data.stats.total || 0;
+                    successCount = data.stats.success || 0;
+                    failCount = data.stats.failed || 0;
+                    updateStats();
+                    if (data.logs && data.logs.length > 0) {
+                        const lastLogs = data.logs.slice(-5);
+                        lastLogs.forEach(log => addLog(log));
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function fetchProxyStats() {
+            try {
+                const response = await fetch('/api/proxy/stats');
+                const data = await response.json();
+                if (data.success) {
+                    proxyCountSpan.textContent = `${data.total} proxies`;
+                }
+            } catch(e) {}
+        }
+
+        async function reloadProxies() {
+            addLog('[SYSTEM] Reloading proxies from GitHub...', 'system');
+            try {
+                await fetch('/api/proxy/reload', { method: 'POST' });
+                setTimeout(fetchProxyStats, 3000);
+                addLog('[SYSTEM] Proxy reload initiated', 'system');
+            } catch(e) {
+                addLog('[ERROR] Failed to reload proxies', 'error');
+            }
+        }
+
+        startBtn.addEventListener('click', async function() {
+            const target = document.getElementById('target').value.trim();
+            const port = document.getElementById('port').value.trim();
+            const attackType = document.getElementById('attackType').value;
+            const strategy = document.getElementById('strategy').value;
+            const intensity = document.getElementById('intensity').value;
+            const mode = document.getElementById('mode').value;
+            const reqCount = mode === '2' ? parseInt(document.getElementById('reqCount').value) : 1000;
+            const concurrency = parseInt(document.getElementById('concurrency').value) || 50;
+            const logging = document.getElementById('logging').value;
+            const useProxy = document.getElementById('useProxy').value;
+
+            if (!target) {
+                addLog('[ERROR] Target required!', 'error');
+                return;
+            }
+
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            isAttacking = true;
+            statusDot.classList.add('active');
+            recordingStatus.textContent = 'ATTACKING';
+            packetCount = successCount = failCount = 0;
+            updateStats();
+
+            addLog('[SYSTEM] Initializing attack sequence...', 'system');
+
+            try {
+                const response = await fetch('/api/attack', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'start',
+                        target, port, attack_type: attackType, strategy, intensity,
+                        mode, reqCount, concurrency, logging, use_proxy: useProxy
+                    })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    attackId = data.attackId;
+                    addLog(`[SYSTEM] Attack ID: ${attackId}`, 'system');
+                    addLog(`[SYSTEM] Target: ${target} | Strategy: ${strategy} | Intensity: ${intensity}`, 'system');
+                    statsInterval = setInterval(fetchStats, 1000);
+                    fetchProxyStats();
+                } else {
+                    throw new Error(data.error || 'Unknown error');
+                }
+            } catch (error) {
+                addLog(`[ERROR] Failed: ${error.message}`, 'error');
+                stopAttack();
+            }
+        });
+
+        async function stopAttack() {
+            if (attackId) {
+                try {
+                    await fetch('/api/attack', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ action: 'stop', id: attackId })
+                    });
+                } catch(e) {}
+            }
+            if (statsInterval) clearInterval(statsInterval);
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            isAttacking = false;
+            statusDot.classList.remove('active');
+            recordingStatus.textContent = 'STANDBY';
+            addLog('[SYSTEM] Attack terminated.', 'system');
+            attackId = null;
+        }
+
+        stopBtn.addEventListener('click', stopAttack);
+        downloadBtn.addEventListener('click', () => {
+            if (attackId) window.open(`/api/logs/${attackId}`, '_blank');
+            else addLog('[ERROR] No active attack logs', 'error');
+        });
+        reloadProxyBtn.addEventListener('click', reloadProxies);
+
+        window.addEventListener('beforeunload', () => { if (isAttacking) stopAttack(); });
+        
+        fetchProxyStats();
+        setInterval(fetchProxyStats, 30000);
+        addLog('[SYSTEM] Ready. Enter target and click INITIATE ATTACK.', 'system');
+    </script>
+</body>
+</html>
